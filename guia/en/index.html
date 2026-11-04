@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code 2.0 in practice — 13 new features with ready-to-use prompts</title>
+<meta name="description" content="The 13 new Claude Code features explained for people who don’t code: what each one is, how to turn it on, what to avoid, and a ready-to-copy prompt for each.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/claude-code-2/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/claude-code-2/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/claude-code-2/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;height:auto;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+<style>
+  .chip{font-size:.75rem}
+  @media(max-width:960px){nav .links a.sec{display:none}}
+  .idx{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+  .idx a{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--txt);font-family:Sora;font-weight:600;font-size:.9rem}
+  .idx a:hover{border-color:var(--amb)}
+  .idx b{color:var(--amb);font-size:.8rem}
+  .nov{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:22px;scroll-margin-top:80px}
+  .nov .top{display:flex;gap:14px;align-items:flex-start;margin-bottom:10px}
+  .nov .n{flex:0 0 46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+  .nov h3{font-size:1.3rem}
+  .nov .tag{color:var(--mut);margin:.3em 0 0}
+  .nov .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+  @media(max-width:760px){.nov .cols{grid-template-columns:1fr}}
+  .nov h4{font-family:Sora;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amb);margin:0 0 .5em}
+  .nov ol{margin:0;padding-left:1.2em;color:var(--txt)} .nov ol li{margin:.25em 0}
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  @media(max-width:560px){.dd{grid-template-columns:1fr}}
+  .dd div{border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.93rem}
+  .dd .no b{color:#f87171} .dd .yes b{color:#4ade80}
+  .warn{margin-top:14px;border-left:3px solid var(--amb);background:rgba(226,162,59,.08);padding:10px 14px;border-radius:0 10px 10px 0;font-size:.93rem}
+  .pbox{position:relative;margin-top:16px}
+  .pbox pre{white-space:pre-wrap;margin:0;padding-right:92px}
+  .cp{position:absolute;top:10px;right:10px;background:var(--amb);color:#1a1206;border:none;border-radius:8px;padding:.35em .8em;font-family:Sora;font-weight:600;font-size:.8rem;cursor:pointer}
+  table.av{width:100%;border-collapse:collapse;font-size:.93rem}
+  table.av th,table.av td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.av th{font-family:Sora;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+  .tw{overflow-x:auto}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🧭</span> Claude Code 2.0</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">What it is</a>
+    <a class="sec" href="#pre">Before you start</a>
+    <a class="sec" href="#guia">The 13</a>
+    <a class="sec" href="#onde">Where it works</a>
+    <span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <a class="btn" href="https://github.com/inematds/claude-code-2" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Practical guide · 13 new features</span>
+      <h1>Claude Code 2.0 in <span class="amb">practice</span></h1>
+      <p class="lead">What each new feature does, how to turn it on, and a ready-to-copy prompt. No coding required.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">See all 13 new features</a>
+        <a class="btn ghost" href="https://github.com/inematds/claude-code-2/tree/main/prompts" target="_blank" rel="noopener">Download the prompts</a>
+      </div>
+    </div>
+    <figure><img src="../assets/banner-en.jpg" alt="Claude Code in practice banner: 13 new features, one ready-to-use prompt for each"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">In brief</span>
+  <p>This guide explains, in simple terms, the 13 most useful new features in Claude Code, Anthropic’s assistant that works with your files and computer. It’s for people who create content, teach, or run a business and want to use AI in their daily work without knowing how to code. Each feature explains what it does, where to turn it on, a precaution, and a ready-to-use prompt. To get started, you just need the Claude app on Mac or Windows and a paid plan (Pro, Max, or Ultra); some features are still in testing or only available in the US, and the guide notes that for each one.</p>
+</div></section>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">What it is</span>
+  <h2>One page to explore, try, and share</h2>
+  <p class="sub">“Claude Code 2.0” is a nickname many people gave to the bundle of new features in Claude Code 2.1.x (it’s not the old Claude 2 model). Here’s what changed, checked against the official documentation on November 1, 2026.</p>
+  <figure style="margin:0 0 26px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="../assets/banner-grade-en.jpg" alt="Claude Code updates in cards: Side chat, Split view, Computer use, Projects, Remote Control, and mods" loading="lazy" style="width:100%;display:block"></figure>
+  <div class="grid g3">
+    <div class="card"><h3>🎯 One update at a time</h3><p>Each card explains the problem it solves, how to turn it on, and what to avoid. Try one, then the next.</p></div>
+    <div class="card"><h3>📋 Ready-to-use prompt</h3><p>Every card ends with a sample prompt. Click Copy, paste it into Claude, and replace the names with your own.</p></div>
+    <div class="card"><h3>🧾 Official information only</h3><p>Names and shortcuts checked against the documentation. Anything in testing, paid separately, or outside the US is clearly marked.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Before you start</span>
+  <h2>What you need</h2>
+  <p class="sub">Three quick checks prevent most questions.</p>
+  <div class="grid g3">
+    <div class="card"><h3>1. The Claude app</h3><p>New features in the Code tab are available in the Claude app for Mac and Windows (download it at <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>). Almost everything here can be done in the app, without a terminal. On Linux, use Claude Code in the terminal.</p></div>
+    <div class="card"><h3>2. A paid plan</h3><p>Pro, Max, or Ultra. Some new features (Projects, Claude Duet) still require joining a waitlist; Motion is only available on Team and Enterprise plans.</p></div>
+    <div class="card"><h3>3. An updated app</h3><p>Many features depend on the version. Install updates whenever the app offers them. Optional, for those who already use the terminal: the command below shows the Claude Code version (mods require 2.1.287 or later).</p><pre><span class="k">claude --version</span></pre></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Words in this guide</h3><p><b>Session</b>: a conversation with Claude and its own history. <b>Context</b>: everything Claude is taking into account in that conversation. <b>Thread</b>: a task within a project, with its own conversation. <b>Skill</b>: a set of instructions you teach Claude and call by name. <b>Preview</b> and <b>beta</b>: features still being tested, which may change or may not be available to everyone yet. <b>Terminal</b>: the computer’s command window; it’s optional here. <b>Prompt</b>: the text you paste into Claude’s message box. <b>Timestamp</b>: the point in the video in minutes and seconds (e.g., 02:15). <b>Ultra</b>: Claude’s highest paid plan, above Max. <b>VS Code</b>: a code editor; only relevant to people who program.</p></div>
+  <p class="sub" style="margin-top:22px">Shortcuts: where the guide says <b>Cmd</b> (Mac), use <b>Ctrl</b> on Windows; where it says <b>Option</b>, use <b>Alt</b>.</p>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">The 13 new features</span>
+  <h2>Choose one and try it now</h2>
+  <p class="sub">Click to jump straight to the card. The examples use everyday tasks for someone creating a course, a video, or a post. Card 1 creates the <code>lesson-1</code> folder with the <code>lesson-1/script.md</code> script, which the other prompts use; if you prefer, replace that path with the name of one of your own files.</p>
+  <div class="idx" style="margin-bottom:34px">
+    <a href="#n1"><b>01</b> Sections by project</a>
+    <a href="#n2"><b>02</b> Side chat</a>
+    <a href="#n3"><b>03</b> Split view</a>
+    <a href="#n4"><b>04</b> Helpers (subagents)</a>
+    <a href="#n5"><b>05</b> Computer use</a>
+    <a href="#n6"><b>06</b> Projects in the cloud</a>
+    <a href="#n7"><b>07</b> Remote Control</a>
+    <a href="#n8"><b>08</b> Built-in browser</a>
+    <a href="#n9"><b>09</b> Slides, designs, and dashboards</a>
+    <a href="#n10"><b>10</b> Shared docs</a>
+    <a href="#n11"><b>11</b> Slash commands</a>
+    <a href="#n12"><b>12</b> Mods</a>
+    <a href="#n13"><b>13</b> Claude Duet</a>
+  </div>
+
+  <article class="nov" id="n1">
+    <div class="top"><div class="n">01</div><div><h3>Sections by project</h3><p class="tag">Everything for one project in one place: conversations, files, and tasks.</p></div></div>
+    <p>In the app's Code tab, conversations are now organized into sections in the sidebar. Instead of one long list, each project (a course, a channel, a client) gets its own section, so you can find everything without scrolling.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Update the app and open the Code tab (at the top of the app, next to Chat).</li><li>When you start a new session, choose the project folder on your computer. If you can't find it, ask Claude: "how do I open a session in my Documents/course folder?" The sidebar shows conversations grouped into sections.</li><li>Use one section per project. These sections used to be called "groups."</li></ol></div>
+      <div><h4>Tip</h4><p class="mut" style="margin:0">Think of the 5 projects you have today. One section for each is enough.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Keeping all your conversations in one list.</div><div class="yes"><b>✓ Do</b><br>One section per project.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Organize this folder for my "AI Spreadsheets" course.
+Create a task list for this week: lesson 1 script (save in lesson-1/script.md), 5 exercises, and 1 announcement post.
+Check off each item as you finish it.
+Save everything in a folder called "lesson-1".
+Ask before changing or deleting any files that are already here.</pre></div>
+  </article>
+
+  <article class="nov" id="n2">
+    <div class="top"><div class="n">02</div><div><h3>Side chat</h3><p class="tag">Ask on the side. Your main conversation stays clean.</p></div></div>
+    <p>A quick question in the middle of your work doesn’t need to go into the main conversation. Side chat answers using what Claude already knows from that session, and that exchange stays out of the main history. Your main conversation stays shorter and faster.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>In the app: <b>Cmd + ;</b> (Windows: <b>Ctrl + ;</b>) opens side chat; paste the question below.</li><li>In the terminal: type <code>/btw</code> and your question.</li><li>Close it and get back to work.</li></ol></div>
+      <div><h4>When to use it</h4><p class="mut" style="margin:0">Any quick question: a synonym, a calculation, “what is this?” The main conversation stays focused on your work.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Filling the main conversation with random questions.</div><div class="yes"><b>✓ Do</b><br>Open side chat and ask on the side.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>What’s a short synonym for “impressionante” that would work in a video title?</pre></div>
+  </article>
+
+  <article class="nov" id="n3">
+    <div class="top"><div class="n">03</div><div><h3>Split view</h3><p class="tag">Two conversations side by side, each with its own task.</p></div></div>
+    <p>You can follow two sessions at the same time in the same window. One writes the script, the other prepares the post. Each works at its own pace, and you can see both.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li><b>Option + click</b> (Windows: <b>Alt + click</b>) on a session in the sidebar.</li><li>Or right-click the session → Open in → Split view.</li><li>To close split view: <b>Cmd + Ctrl + W</b> (Windows: <b>Ctrl + Alt + W</b>).</li></ol></div>
+      <div><h4>What to put side by side</h4><p class="mut" style="margin:0">Two different tasks. Never have both sessions editing the same file.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Both sessions editing the same file.</div><div class="yes"><b>✓ Do this</b><br>One task on each side.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Write this week's community post based on the script in lesson-1/script.md.
+120 words, simple language, and a question at the end for people to answer.
+Don't publish it. Show me the draft.</pre></div>
+  </article>
+
+  <article class="nov" id="n4">
+    <div class="top"><div class="n">04</div><div><h3>Helpers (subagents)</h3><p class="tag">One conversation splits the work among helpers and brings the results together.</p></div></div>
+    <p>You give a large task to one conversation. It opens helpers (subagents), each handles one part in its own context and returns a summary. The main conversation reviews and brings everything together. Many people call this “nested sessions,” but the official name is subagent.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Open a session in the project folder.</li><li>Give it the whole task, divided into parts.</li><li>Ask for one helper per part and a review at the end.</li></ol></div>
+      <div><h4>Does it use more?</h4><p class="mut" style="margin:0">Yes. Each helper uses part of your limit. Start with 2 or 3. To coordinate several sessions, see the course <a href="https://inematds.github.io/claude-gestor-de-agentes-v72/" target="_blank" rel="noopener">Claude as an agent manager</a> (in Portuguese).</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Opening 20 helpers and leaving.</div><div class="yes"><b>✓ Do this</b><br>Start with 2 or 3 and check usage.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Turn lesson 1 (lesson-1/script.md) into:
+1. A lesson summary
+2. 5 ideas for short clips with timestamps
+3. 3 short social media posts
+4. A community post
+Use one subagent for each item. Each one handles only its part and returns the result.
+At the end, review all four, fix anything that doesn’t match, and give me a short summary.</pre></div>
+  </article>
+
+  <article class="nov" id="n5">
+    <div class="top"><div class="n">05</div><div><h3>Background computer use</h3><p class="tag">Claude uses your computer’s apps while you keep working.</p></div></div>
+    <p>For programs without another way to automate them, Claude clicks and types inside the app on its own. On Mac, this happens in the background without taking over your mouse.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Turn on computer use in the app settings (Settings); it’s off by default.</li><li>On Mac, allow Accessibility and Screen Recording. On Windows, approve what the app asks for.</li><li>Ask it to do a task in an app.</li></ol></div>
+      <div><h4>Ideas for using it</h4><p class="mut" style="margin:0">Export a video in an editor, organize screenshots by month, test every button in an app you created.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Allowing every app it asks for.</div><div class="yes"><b>✓ Do</b><br>Allow only the app for that task.</div></div>
+    <div class="warn">In testing (research preview) on Mac and Windows, on the Pro, Max, and Ultra plans. Not available for Team and Enterprise. Browsers are view-only: on websites, Claude uses its built-in browser (new feature 8).</div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Use background computer use without taking over my screen.
+Organize the screenshots on my Desktop into a folder for each month inside "Screenshots".
+Don’t delete anything.
+Let me know when you’re done and how many files you moved.</pre></div>
+  </article>
+
+  <article class="nov" id="n6">
+    <div class="top"><div class="n">06</div><div><h3>Projects in the cloud</h3><p class="tag">Your work continues with your laptop closed.</p></div></div>
+    <p>The new Projects is an ongoing conversation where Claude opens a thread for each task. The threads run in the cloud, so research continues even when your computer is off. Claude lets you know when a thread needs you. Don't confuse it with the old Projects on claude.ai, which was a folder of files.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Look for Projects in the sidebar (<a href="https://claude.ai/code" target="_blank" rel="noopener">claude.ai/code</a> or the app's Code tab).</li><li>Can't find it? Join the waitlist.</li><li>Open a project and assign tasks.</li></ol></div>
+      <div><h4>Your files</h4><p class="mut" style="margin:0">Anything sent to the cloud leaves your computer. Decide what you're comfortable uploading first.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Uploading a client's confidential file.</div><div class="yes"><b>✓ Do</b><br>Keep private files in a local folder.</div></div>
+    <div class="warn">Beta with a waitlist, on Pro, Max, and Ultra plans.</div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Research what has changed in AI video creation tools over the past 30 days.
+List 5 new developments, with a source link for each one.
+Then write 3 title ideas for a video about this, each under 60 characters.
+Save everything in research.md.</pre></div>
+  </article>
+
+  <article class="nov" id="n7">
+    <div class="top"><div class="n">07</div><div><h3>Remote Control</h3><p class="tag">Review and approve from your phone. Your computer keeps working.</p></div></div>
+    <p>Leave a session running on your computer and follow along on your phone in the Claude app. Read the plan, approve it, and leave. You don't need a terminal on your phone.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>In the session, type <code>/remote-control</code> (or <code>/rc</code>) in the session's message box. In the app, you can also turn it on from the session's Environment card.</li><li>In Settings → Code, turn on "Keep this computer awake for Remote Control."</li><li>On your phone, open the Claude app with the same account and join the session.</li></ol></div>
+      <div><h4>Remember</h4><p class="mut" style="margin:0">The work runs on your computer. If it sleeps or shuts down, it stops.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Checking your phone every 5 minutes.</div><div class="yes"><b>✓ Do this</b><br>Approve the plan and let it work.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>/remote-control</pre></div>
+  </article>
+
+  <article class="nov" id="n8">
+    <div class="top"><div class="n">08</div><div><h3>Built-in browser</h3><p class="tag">Claude uses websites like you do, even without an integration.</p></div></div>
+    <p>The app has its own browser. Sign in to your account once, and Claude can read pages and click for you. It works for dashboards and websites that have no other way to automate tasks.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Open it with <b>Cmd + Shift + B</b> (Windows: <b>Ctrl + Shift + B</b>).</li><li>Sign in yourself.</li><li>Describe the task in plain language.</li></ol></div>
+      <div><h4>Security</h4><p class="mut" style="margin:0">Keep the app up to date, and always ask it to “don’t publish or change anything” when you only need to read.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Opening unfamiliar websites with an outdated app.</div><div class="yes"><b>✓ Do</b><br>Update the app first.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Open my YouTube channel dashboard in the browser. I'm already signed in.
+Find the latest video and read its page.
+Come up with 5 clip ideas with timestamps, a new description, and a community post.
+Don't publish or change anything on the site.</pre></div>
+  </article>
+
+  <article class="nov" id="n9">
+    <div class="top"><div class="n">09</div><div><h3>Slides, designs, and dashboards</h3><p class="tag">Say what you want, see it done, and make changes with words.</p></div></div>
+    <p>In Claude (the app’s Chat tab or claude.ai), ask for a presentation, an illustration, or a dashboard with numbers, and it puts it together in the conversation. The official names are Claude Slides, Claude Design, Dashboards, and Claude Motion (animated video). You make changes by talking, without opening another program.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Describe what you want in words.</li><li>Make changes with words (“larger text,” “remove slide 4”).</li><li>Share the link.</li></ol></div>
+      <div><h4>Numbers</h4><p class="mut" style="margin:0">Before showing a dashboard, check 3 numbers against the original source.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Sharing a dashboard without checking it.</div><div class="yes"><b>✓ Do</b><br>Check 3 numbers against the source.</div></div>
+    <div class="warn">Slides and Design are available on all plans. Dashboards is in beta. Claude Motion is in beta and only available on Team and Enterprise plans.</div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Create a 7-slide presentation summarizing lesson 1 (lesson-1/script.md).
+One idea per slide, large text, black and yellow.
+Put the lesson’s best line on slide 1.</pre></div>
+  </article>
+
+  <article class="nov" id="n10">
+    <div class="top"><div class="n">10</div><div><h3>Shared docs</h3><p class="tag">A living page the team uses with Claude.</p></div></div>
+    <p>In Claude (the Chat tab in the app or claude.ai), it creates a document (Claude Docs) that you share with a link. Anyone who receives it can view, comment, or edit, depending on the permission you give. You (the doc owner) can tag @Claude in a comment, and it will revise or reply right there.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Ask for the document.</li><li>Share it and choose: view, comment, or edit.</li><li>Tag @Claude in a comment to have it take action.</li></ol></div>
+      <div><h4>Why not a file?</h4><p class="mut" style="margin:0">The page stays live. Everyone works on the same copy, with no versions lost in email.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Sending files back and forth.</div><div class="yes"><b>✓ Do</b><br>One page the team can edit.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Create a doc to track this month's livestream guests.
+A table with: name, topic, date, and status (invited, confirmed, recorded).
+Make it ready for me to share with the team.</pre></div>
+  </article>
+
+  <article class="nov" id="n11">
+    <div class="top"><div class="n">11</div><div><h3>Slash commands</h3><p class="tag">Shortcuts that change how Claude works.</p></div></div>
+    <p>Type <code>/</code> in the message box and choose a command from the list. No programming needed. These five can help a lot in your day-to-day work.</p>
+    <div class="cols">
+      <div><h4>How to use them</h4><ol><li>Type <code>/</code>.</li><li>Choose a command.</li><li>Start with <code>/output-style concise</code>: responses get shorter. To switch back, run <code>/output-style</code> again and choose another style.</li></ol></div>
+      <div><h4>Can't find your command?</h4><p class="mut" style="margin:0">If you created a skill, keep its description short and say when to use it.</p></div>
+    </div>
+    <ul style="margin:14px 0 0;padding-left:1.2em">
+      <li><code>/rewind</code>: go back to before a bad response (or press Esc twice).</li>
+      <li><code>/context</code>: shows what's taking up space in the conversation.</li>
+      <li><code>/recap</code>: a one-line summary when you return from a break.</li>
+      <li><code>/goal</code>: keeps working until it reaches a clear goal.</li>
+      <li><code>/output-style</code>: shorter or more detailed responses.</li>
+    </ul>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Long, vague descriptions in your skills.</div><div class="yes"><b>✓ Do</b><br>Keep them short and say when to use them.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>/output-style concise</pre></div>
+  </article>
+
+  <article class="nov" id="n12">
+    <div class="top"><div class="n">12</div><div><h3>Mods</h3><p class="tag">Change how Claude Code looks and works: status bars, alerts, bars, and commands.</p></div></div>
+    <p>A mod is an add-on that changes how Claude Code looks and behaves. It can show a bar with how much of the conversation has been used, an alert when something finishes, or a new command. You don’t need to change any code: ask Claude to review and install one, or create one.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Update to version 2.1.287 or newer.</li><li>In a session on the Code tab, paste the prompt below with the mod link.</li><li>Or ask Claude to create a mod for you.</li></ol></div>
+      <div><h4>Ready-made examples</h4><p class="mut" style="margin:0">18 tested mods in Portuguese: <a href="https://github.com/inematds/inema-mods" target="_blank" rel="noopener">inematds/inema-mods</a>.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Installing a mod without reading what it does.</div><div class="yes"><b>✓ Do</b><br>Ask Claude to review the code first.</div></div>
+    <div class="warn">Mods don’t run in isolation: they have access to whatever Claude Code can access. That’s why the prompt asks Claude to review one first. For terminal users: <code>claude plugin validate</code> followed by the mod folder lists what it requests, and <code>claude --safe-mode</code> opens Claude Code without any mods.</div>
+    <div class="pbox"><button class="cp">Copy</button><pre>I want to install this Claude Code mod: [paste the GitHub link]
+Before installing, read the code and run claude plugin validate in its folder.
+Tell me in simple terms what it can access: my files, commands, and the internet.
+If it’s safe, install it and tell me how to turn it off.
+No link? Then create a small mod: [say what you want to see, e.g., a bar showing how much of the conversation has been used].</pre></div>
+  </article>
+
+  <article class="nov" id="n13">
+    <div class="top"><div class="n">13</div><div><h3>Claude Duet</h3><p class="tag">An assistant that brings the work to you.</p></div></div>
+    <p>Duet looks at what’s pending in your projects, prepares a draft, and asks before taking action. Instead of having to remember everything, it brings you the next task.</p>
+    <div class="cols">
+      <div><h4>How to use it</h4><ol><li>Go to <a href="https://claude.com/product/claude-duet" target="_blank" rel="noopener">claude.com/product/claude-duet</a>.</li><li>Join the waitlist.</li><li>When it becomes available, ask for the task of the day.</li></ol></div>
+      <div><h4>What it’s for</h4><p class="mut" style="margin:0">Keep projects moving when you’re not looking.</p></div>
+    </div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Using it for everyday one-off tasks.</div><div class="yes"><b>✓ Do</b><br>Use it to keep projects moving.</div></div>
+    <div class="warn">Currently available only in the US as a preview, with a waitlist (Pro, Max, and Ultra plans). It’s not available outside the US yet: save the prompt for when it launches.</div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Every morning, look at my course and channel work in Claude.
+Bring me the task that will save me the most time today.
+Draft it and ask me before sending, publishing, or deleting anything.</pre></div>
+  </article>
+</div></section>
+
+<section id="onde"><div class="wrap">
+  <span class="chip">Where it works</span>
+  <h2>What you can use today</h2>
+  <p class="sub">Status as of November 1, 2026. Plans and availability change: check your app.</p>
+  <div class="tw"><table class="av">
+    <tr><th>Feature</th><th>Where</th><th>Status</th></tr>
+    <tr><td>Sections, Side chat, Split view, browser</td><td>Mac and Windows app</td><td>Available</td></tr>
+    <tr><td>Subagents, slash commands</td><td>App and terminal</td><td>Available</td></tr>
+    <tr><td>Mods</td><td>App, terminal, and VS Code</td><td>Available (version 2.1.287+)</td></tr>
+    <tr><td>Remote Control</td><td>Computer + mobile app</td><td>Available</td></tr>
+    <tr><td>Computer use</td><td>Mac and Windows · Pro, Max, Ultra</td><td>In testing, off by default</td></tr>
+    <tr><td>Projects in the cloud</td><td>claude.ai/code and app · Pro, Max, Ultra</td><td>Beta with a waitlist</td></tr>
+    <tr><td>Slides, Design / Dashboards / Motion</td><td>Claude</td><td>Available / beta / beta for Team and Enterprise only</td></tr>
+    <tr><td>Shared docs</td><td>Claude</td><td>Available</td></tr>
+    <tr><td>Claude Duet</td><td>US only</td><td>Preview with a waitlist</td></tr>
+  </table></div>
+  <p class="sub" style="margin-top:26px">Start with one. When it makes a difference in your day, move on to the next. All prompts in this guide are available as text in the <a href="https://github.com/inematds/claude-code-2/tree/main/prompts" target="_blank" rel="noopener">prompts/</a> folder, and the full course, with 7 lessons and hands-on practice, is available in <a href="https://inematds.github.io/claude-code-2-na-pratica-v72/en/" target="_blank" rel="noopener">Claude Code 2.0 in practice</a> (INEMA.CLUB).</p>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Claude Code</div><div class="pill">13 new features</div><div class="pill">Ready-to-use prompts</div>
+    <p style="margin-top:18px">Claude Code 2.0 in Practice · checked on November 1, 2026 ·
+      <a href="https://github.com/inematds/claude-code-2">inematds/claude-code-2</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='claude-code-2-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+    document.querySelectorAll('.cp').forEach(function(btn){
+      var label=btn.textContent;
+      btn.addEventListener('click',function(){
+        var txt=btn.parentNode.querySelector('pre').innerText;
+        navigator.clipboard.writeText(txt).then(function(){ btn.textContent='✓'; setTimeout(function(){btn.textContent=label;},1500); });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
