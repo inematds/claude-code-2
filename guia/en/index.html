@@ -189,11 +189,11 @@
   <h2>What you need</h2>
   <p class="sub">Three quick checks prevent most questions.</p>
   <div class="grid g3">
-    <div class="card"><h3>1. The Claude app</h3><p>New features in the Code tab are available in the Claude app for Mac and Windows (download it at <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>). Almost everything here can be done in the app, without a terminal. On Linux, use Claude Code in the terminal.</p></div>
+    <div class="card"><h3>1. The Claude app</h3><p>The new features in the Code tab are in the Claude app for Mac and Windows (download it at <a href="https://claude.com/download" target="_blank" rel="noopener">claude.com/download</a>). You can do almost everything here in the app, without a terminal. On Linux, use Claude Code in the terminal.</p></div>
     <div class="card"><h3>2. A paid plan</h3><p>Pro, Max, or Ultra. Some new features (Projects, Claude Duet) still require joining a waitlist; Motion is only available on Team and Enterprise plans.</p></div>
-    <div class="card"><h3>3. An updated app</h3><p>Many features depend on the version. Install updates whenever the app offers them. Optional, for those who already use the terminal: the command below shows the Claude Code version (mods require 2.1.287 or later).</p><pre><span class="k">claude --version</span></pre></div>
+    <div class="card"><h3>3. Updated app</h3><p>Many features depend on the version. Install updates whenever the app offers them. Optional, for those who already use the terminal: the command below shows the Claude Code version (the mods require 2.1.287 or later).</p><pre><span class="k">claude --version</span></pre></div>
   </div>
-  <div class="card" style="margin-top:16px"><h3>Words in this guide</h3><p><b>Session</b>: a conversation with Claude and its own history. <b>Context</b>: everything Claude is taking into account in that conversation. <b>Thread</b>: a task within a project, with its own conversation. <b>Skill</b>: a set of instructions you teach Claude and call by name. <b>Preview</b> and <b>beta</b>: features still being tested, which may change or may not be available to everyone yet. <b>Terminal</b>: the computer’s command window; it’s optional here. <b>Prompt</b>: the text you paste into Claude’s message box. <b>Timestamp</b>: the point in the video in minutes and seconds (e.g., 02:15). <b>Ultra</b>: Claude’s highest paid plan, above Max. <b>VS Code</b>: a code editor; only relevant to people who program.</p></div>
+  <div class="card" style="margin-top:16px"><h3>Words in this guide</h3><p><b>Session</b>: a conversation with Claude and its own history. <b>Context</b>: everything Claude is considering in that conversation. <b>Thread</b>: a task within a project, with its own conversation. <b>Skill</b>: a set of instructions you teach Claude and call by name. <b>Preview</b> and <b>beta</b>: features still being tested, which may change or may not yet be available to everyone. <b>Terminal</b>: the computer’s command window; it’s optional here. <b>Prompt</b>: the text you paste into Claude’s message box. <b>Timestamp</b>: the point in the video in minutes and seconds (e.g., 02:15). <b>Ultra</b>: Claude’s highest paid plan, above Max. <b>VS Code</b>: a code editor; only relevant if you write code. <b>Team</b> and <b>Enterprise</b>: business plans paid for by a team.</p></div>
   <p class="sub" style="margin-top:22px">Shortcuts: where the guide says <b>Cmd</b> (Mac), use <b>Ctrl</b> on Windows; where it says <b>Option</b>, use <b>Alt</b>.</p>
 </div></section>
 
@@ -233,14 +233,14 @@ Ask before changing or deleting any files that are already here.</pre></div>
   </article>
 
   <article class="nov" id="n2">
-    <div class="top"><div class="n">02</div><div><h3>Side chat</h3><p class="tag">Ask on the side. Your main conversation stays clean.</p></div></div>
-    <p>A quick question in the middle of your work doesn’t need to go into the main conversation. Side chat answers using what Claude already knows from that session, and that exchange stays out of the main history. Your main conversation stays shorter and faster.</p>
+    <div class="top"><div class="n">02</div><div><h3>Side chat</h3><p class="tag">Ask on the side. Keep the main conversation clean.</p></div></div>
+    <p>A quick question during your work doesn’t need to go into the main conversation. Side chat answers using what Claude already knows from that session, and the exchange stays out of the main history. The main conversation stays shorter and faster.</p>
     <div class="cols">
       <div><h4>How to use it</h4><ol><li>In the app: <b>Cmd + ;</b> (Windows: <b>Ctrl + ;</b>) opens side chat; paste the question below.</li><li>In the terminal: type <code>/btw</code> and your question.</li><li>Close it and get back to work.</li></ol></div>
-      <div><h4>When to use it</h4><p class="mut" style="margin:0">Any quick question: a synonym, a calculation, “what is this?” The main conversation stays focused on your work.</p></div>
+      <div><h4>When to use it</h4><p class="mut" style="margin:0">Any quick question: a synonym, a calculation, “what is this?” Keep the main conversation for your work.</p></div>
     </div>
-    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Filling the main conversation with random questions.</div><div class="yes"><b>✓ Do</b><br>Open side chat and ask on the side.</div></div>
-    <div class="pbox"><button class="cp">Copy</button><pre>What’s a short synonym for “impressionante” that would work in a video title?</pre></div>
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Filling the main conversation with scattered questions.</div><div class="yes"><b>✓ Do</b><br>Open side chat and ask on the side.</div></div>
+    <div class="pbox"><button class="cp">Copy</button><pre>What’s a short synonym for “impressive” that works in a video title?</pre></div>
   </article>
 
   <article class="nov" id="n3">
@@ -275,15 +275,15 @@ At the end, review all four, fix anything that doesn’t match, and give me a sh
 
   <article class="nov" id="n5">
     <div class="top"><div class="n">05</div><div><h3>Background computer use</h3><p class="tag">Claude uses your computer’s apps while you keep working.</p></div></div>
-    <p>For programs without another way to automate them, Claude clicks and types inside the app on its own. On Mac, this happens in the background without taking over your mouse.</p>
+    <p>For programs with no other way to automate them, Claude clicks and types inside the app on its own. On Mac, this happens in the background without taking over your mouse. On Windows, don’t use your mouse or keyboard while Claude works.</p>
     <div class="cols">
-      <div><h4>How to use it</h4><ol><li>Turn on computer use in the app settings (Settings); it’s off by default.</li><li>On Mac, allow Accessibility and Screen Recording. On Windows, approve what the app asks for.</li><li>Ask it to do a task in an app.</li></ol></div>
-      <div><h4>Ideas for using it</h4><p class="mut" style="margin:0">Export a video in an editor, organize screenshots by month, test every button in an app you created.</p></div>
+      <div><h4>How to use it</h4><ol><li>Turn on computer use in the app settings (Settings); it’s off by default.</li><li>On Mac, allow Accessibility and Screen Recording. On Windows, approve what the app asks for.</li><li>Ask Claude to do something in an app.</li></ol></div>
+      <div><h4>Ways to use it</h4><p class="mut" style="margin:0">Export a video in an editor, organize screenshots by month, test every button in an app you built.</p></div>
     </div>
-    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Allowing every app it asks for.</div><div class="yes"><b>✓ Do</b><br>Allow only the app for that task.</div></div>
-    <div class="warn">In testing (research preview) on Mac and Windows, on the Pro, Max, and Ultra plans. Not available for Team and Enterprise. Browsers are view-only: on websites, Claude uses its built-in browser (new feature 8).</div>
-    <div class="pbox"><button class="cp">Copy</button><pre>Use background computer use without taking over my screen.
-Organize the screenshots on my Desktop into a folder for each month inside "Screenshots".
+    <div class="dd"><div class="no"><b>✕ Avoid</b><br>Allowing every app it asks for.</div><div class="yes"><b>✓ Do</b><br>Allow only the app needed for that task.</div></div>
+    <div class="warn">In testing (research preview) on Mac and Windows with Pro, Max, and Ultra plans. Not available for Team and Enterprise. Browsers are view-only: on websites, Claude uses its own built-in browser (new feature 8).</div>
+    <div class="pbox"><button class="cp">Copy</button><pre>Use computer use (on Mac, in the background, without taking over my screen).
+Organize the screenshots on my Desktop into a folder for each month, inside "Screenshots".
 Don’t delete anything.
 Let me know when you’re done and how many files you moved.</pre></div>
   </article>
@@ -357,7 +357,7 @@ Make it ready for me to share with the team.</pre></div>
 
   <article class="nov" id="n11">
     <div class="top"><div class="n">11</div><div><h3>Slash commands</h3><p class="tag">Shortcuts that change how Claude works.</p></div></div>
-    <p>Type <code>/</code> in the message box and choose a command from the list. No programming needed. These five can help a lot in your day-to-day work.</p>
+    <p>Type <code>/</code> in the message box of a session in the Code tab and choose a command from the list. You don't need to know how to code. These five are very useful in your daily work.</p>
     <div class="cols">
       <div><h4>How to use them</h4><ol><li>Type <code>/</code>.</li><li>Choose a command.</li><li>Start with <code>/output-style concise</code>: responses get shorter. To switch back, run <code>/output-style</code> again and choose another style.</li></ol></div>
       <div><h4>Can't find your command?</h4><p class="mut" style="margin:0">If you created a skill, keep its description short and say when to use it.</p></div>
@@ -374,18 +374,18 @@ Make it ready for me to share with the team.</pre></div>
   </article>
 
   <article class="nov" id="n12">
-    <div class="top"><div class="n">12</div><div><h3>Mods</h3><p class="tag">Change how Claude Code looks and works: status bars, alerts, bars, and commands.</p></div></div>
-    <p>A mod is an add-on that changes how Claude Code looks and behaves. It can show a bar with how much of the conversation has been used, an alert when something finishes, or a new command. You don’t need to change any code: ask Claude to review and install one, or create one.</p>
+    <div class="top"><div class="n">12</div><div><h3>Mods</h3><p class="tag">Change how Claude Code looks and works: bands, notices, bars, and commands.</p></div></div>
+    <p>A mod is an add-on that changes how Claude Code looks and behaves. It can show a bar indicating how much of the conversation has been used, a notice when something finishes, or a new command. You don't need to change any code: ask Claude to review and install one, or create one.</p>
     <div class="cols">
-      <div><h4>How to use it</h4><ol><li>Update to version 2.1.287 or newer.</li><li>In a session on the Code tab, paste the prompt below with the mod link.</li><li>Or ask Claude to create a mod for you.</li></ol></div>
-      <div><h4>Ready-made examples</h4><p class="mut" style="margin:0">18 tested mods in Portuguese: <a href="https://github.com/inematds/inema-mods" target="_blank" rel="noopener">inematds/inema-mods</a>.</p></div>
+      <div><h4>How to use</h4><ol><li>Update to version 2.1.287 or newer.</li><li>In a Code tab session, paste the prompt below with the mod link.</li><li>Or ask Claude to create a mod for you.</li></ol></div>
+      <div><h4>Ready-to-use examples</h4><p class="mut" style="margin:0">18 ready-to-use, tested mods (in Portuguese): <a href="https://github.com/inematds/inema-mods" target="_blank" rel="noopener">inematds/inema-mods</a>.</p></div>
     </div>
     <div class="dd"><div class="no"><b>✕ Avoid</b><br>Installing a mod without reading what it does.</div><div class="yes"><b>✓ Do</b><br>Ask Claude to review the code first.</div></div>
-    <div class="warn">Mods don’t run in isolation: they have access to whatever Claude Code can access. That’s why the prompt asks Claude to review one first. For terminal users: <code>claude plugin validate</code> followed by the mod folder lists what it requests, and <code>claude --safe-mode</code> opens Claude Code without any mods.</div>
+    <div class="warn">Mods don't run in isolation: they can access everything Claude Code can access. That's why the prompt asks Claude to review it first. For terminal users: <code>claude plugin validate</code> followed by the mod folder lists what it requests, and <code>claude --safe-mode</code> opens Claude Code without any mods.</div>
     <div class="pbox"><button class="cp">Copy</button><pre>I want to install this Claude Code mod: [paste the GitHub link]
 Before installing, read the code and run claude plugin validate in its folder.
-Tell me in simple terms what it can access: my files, commands, and the internet.
-If it’s safe, install it and tell me how to turn it off.
+Tell me in simple words what it can access: my files, commands, the internet.
+If it's safe, install it and tell me how to turn it off.
 No link? Then create a small mod: [say what you want to see, e.g., a bar showing how much of the conversation has been used].</pre></div>
   </article>
 

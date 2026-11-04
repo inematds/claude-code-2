@@ -41,7 +41,7 @@ Al final, revisa los cuatro, corrige lo que no coincida y dame un resumen breve.
 ## 05. Computer use en segundo plano
 
 ```text
-Usa computer use en segundo plano, sin ocupar mi pantalla.
+Usa computer use (en Mac, en segundo plano, sin ocupar mi pantalla).
 Organiza las capturas que están en mi Escritorio en una carpeta por mes, dentro de "Capturas".
 No borres nada.
 Avísame cuando termines y cuántos archivos moviste.
@@ -100,7 +100,7 @@ Quiero instalar este mod de Claude Code: [pega el enlace de GitHub]
 Antes de instalarlo, lee el código y ejecuta claude plugin validate en su carpeta.
 Dime con palabras simples a qué puede acceder: mis archivos, comandos, internet.
 Si es seguro, instálalo y dime cómo desactivarlo.
-¿No tienes enlace? Entonces crea un mod pequeño: [di qué quieres ver, ej.: una barra que muestre cuánto de la conversación ya se usó].
+¿No tienes un enlace? Entonces crea un mod pequeño: [di qué quieres ver, por ejemplo: una barra que muestre cuánto de la conversación ya se usó].
 ```
 
 ## 13. Claude Duet

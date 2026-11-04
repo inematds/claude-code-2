@@ -12,7 +12,7 @@ This guide explains, in plain language, the 13 most useful new features in Claud
 
 Complete guide (all 13 features, each with a ready-to-use prompt): **https://inematds.github.io/claude-code-2/guia/en/**
 
-Course with hands-on practice, in 7 lessons: **https://inematds.github.io/claude-code-2-na-pratica-v72/** (EN/ES versions coming soon)
+Course with hands-on practice, in 7 lessons: **https://inematds.github.io/claude-code-2-na-pratica-v72/en/**
 
 ## The 13 new features
 

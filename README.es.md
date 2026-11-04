@@ -12,7 +12,7 @@ Esta guía presenta, en lenguaje sencillo, las 13 novedades más útiles de Clau
 
 Guía completa (las 13 novedades, cada una con un prompt listo): **https://inematds.github.io/claude-code-2/guia/es/**
 
-Curso práctico, en 7 lecciones: **https://inematds.github.io/claude-code-2-na-pratica-v72/** (versiones EN/ES en breve)
+Curso práctico, en 7 lecciones: **https://inematds.github.io/claude-code-2-na-pratica-v72/es/**
 
 ## Las 13 novedades
 

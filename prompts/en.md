@@ -15,7 +15,7 @@ Ask before changing or deleting any files that are already here.
 ## 02. Side chat
 
 ```text
-What’s a short synonym for “impressionante” that would work in a video title?
+What’s a short synonym for “impressive” that works in a video title?
 ```
 
 ## 03. Split view
@@ -41,8 +41,8 @@ At the end, review all four, fix anything that doesn’t match, and give me a sh
 ## 05. Background computer use
 
 ```text
-Use background computer use without taking over my screen.
-Organize the screenshots on my Desktop into a folder for each month inside "Screenshots".
+Use computer use (on Mac, in the background, without taking over my screen).
+Organize the screenshots on my Desktop into a folder for each month, inside "Screenshots".
 Don’t delete anything.
 Let me know when you’re done and how many files you moved.
 ```
@@ -98,8 +98,8 @@ Make it ready for me to share with the team.
 ```text
 I want to install this Claude Code mod: [paste the GitHub link]
 Before installing, read the code and run claude plugin validate in its folder.
-Tell me in simple terms what it can access: my files, commands, and the internet.
-If it’s safe, install it and tell me how to turn it off.
+Tell me in simple words what it can access: my files, commands, the internet.
+If it's safe, install it and tell me how to turn it off.
 No link? Then create a small mod: [say what you want to see, e.g., a bar showing how much of the conversation has been used].
 ```
 

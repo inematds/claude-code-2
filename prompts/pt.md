@@ -41,7 +41,7 @@ No fim, confira os quatro, corrija o que não bater e me dê um resumo curto.
 ## 05. Computer use em segundo plano
 
 ```text
-Use o computer use em segundo plano, sem tomar a minha tela.
+Use o computer use (no Mac, em segundo plano, sem tomar a minha tela).
 Organize os prints que estão na minha Área de Trabalho em uma pasta por mês, dentro de "Prints".
 Não apague nada.
 Me avise quando terminar e quantos arquivos você moveu.
